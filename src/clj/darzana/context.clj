@@ -18,7 +18,7 @@
 
 (defn create-context [request]
   { :scope { :application (keyword-to-str @application-scope)
-             :session     (get request :session {})
+             :session     (keyword-to-str (get request :session {}))
              :params      (keyword-to-str (get request :params {}))
              :page        {}
              :error       {}
@@ -32,8 +32,8 @@
 
 (defn- find-in-scopes-inner [context key]
   (cond
-    (string? key) key
-    (number? key) (str key)
+    (string? key)  key
+    (number? key)  (str key)
     :else
     (let [keys (if (coll? key)
                  (map name key)

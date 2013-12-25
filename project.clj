@@ -1,4 +1,4 @@
-(defproject net.unit8/darzana "0.1.0-RC2"
+(defproject net.unit8/darzana "0.1.0-SNAPSHOT"
   :description "Mashup framework with visual editor, auto versioning."
   :url "http://github.com/kawasima/darzana/"
   :license {:name "Eclipse Public License"
@@ -6,7 +6,7 @@
   :dependencies [ [org.clojure/clojure "1.5.1"]
                   [org.clojure/tools.nrepl "0.2.3"]
                   [com.github.jknack/handlebars "1.1.2"]
-		  [compojure "1.1.5"]
+		  [compojure "1.1.6"]
                   [http-kit "2.1.13"]
                   [com.taoensso/carmine "2.3.1"] ;;redis
                   [me.raynes/fs "1.4.5"]
@@ -20,10 +20,10 @@
                   [org.slf4j/slf4j-log4j12 "1.7.5"]
                   [com.taoensso/tower "2.0.0-beta5"]
                   ;; for clojurescript
-                  [com.cemerick/clojurescript.test "0.1.0"]
+                  [com.cemerick/clojurescript.test "0.2.0"]
                   [net.unit8/tower-cljs "0.1.0"]
-                  [org.clojure/clojurescript "0.0-1934"]
-                  [jayq "2.4.0"]]
+                  [org.clojure/clojurescript "0.0-2030"]
+                  [jayq "2.5.0"]]
   :jvm-opts ["-XX:+TieredCompilation" "-XX:TieredStopAtLevel=1" "-Xverify:none"]
   :plugins [ [lein-ring "0.8.2"]
              [lein-cljsbuild "0.3.3"]]
@@ -83,5 +83,10 @@
     { "unit" ["runners/phantomjs.js" "target/cljs/testable.js"] }}
   :ring {:handler darzana.core/admin-app}
   :profiles
-  {:dev {:dependencies [[ring-mock "0.1.5"]]}})
+  {:dev { :dependencies
+          [ [ring-mock "0.1.5"]
+            [javax.servlet/servlet-api "2.5"]
+            [midje "1.5.1"]]
+          :plugins [[lein-midje "3.1.1"]]}}
+  :eval-in :classloader)
 

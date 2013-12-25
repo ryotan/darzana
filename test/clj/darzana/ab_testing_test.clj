@@ -1,17 +1,15 @@
 (ns darzana.ab-testing-test
-  (:use
-    [darzana.context :only (create-context)])
   (:require
-    [clojure.test :refer :all]
-    [darzana.ab-testing :refer :all]))
+    [darzana.ab-testing :refer :all])
+  (:use
+    [darzana.context :only (create-context)]
+    [midje.sweet]))
 
-(deftest participate
-  (testing "participate macro."
+(facts "participate"
+  (fact "participate macro."
     (let [ctx (assoc-in (create-context {:session {} :params {}}) [:scope :session :a] 1)]
-      (is (=
-            (-> ctx (ab-testing-participate "new test"
-                      (ab-testing-alternative "Blue" (assoc-in [:scope :params "color"] "BLUE"))))
-            {"a" 1, "b" 2})))))
+      (-> ctx (ab-testing-participate "new test"
+                (ab-testing-alternative "Blue" (assoc-in [:scope :params "color"] "BLUE")))))))
 
 (ns darzana.ab-testing)
 (defn participate-sixpack [experiment client-id alternatives]
