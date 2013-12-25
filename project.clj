@@ -5,24 +5,24 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [ [org.clojure/clojure "1.5.1"]
                   [org.clojure/tools.nrepl "0.2.3"]
-                  [com.github.jknack/handlebars "1.1.2"]
-		  [compojure "1.1.6"]
-                  [http-kit "2.1.13"]
-                  [com.taoensso/carmine "2.3.1"] ;;redis
+                  [com.github.jknack/handlebars "1.2.1"]
+                  [compojure "1.1.6"]
+                  [http-kit "2.1.14"]
+                  [com.taoensso/carmine "2.4.3"] ;;redis
                   [me.raynes/fs "1.4.5"]
                   [clj-oauth "1.4.1"] ;; for Oauth 1.0a support
-                  [clj-jgit "0.6.1"] ;; git
+                  [clj-jgit "0.6.4"] ;; git
                   [net.unit8/gring "0.1.0"] ;; git-server
                   [net.sf.json-lib/json-lib "2.4" :classifier "jdk15"] ;; XML -> JSON
                   [xom/xom "1.2.5"]
                   [org.clojure/data.xml "0.0.7"]
                   [ring.middleware.logger "0.4.3"]
                   [org.slf4j/slf4j-log4j12 "1.7.5"]
-                  [com.taoensso/tower "2.0.0-beta5"]
+                  [com.taoensso/tower "2.0.1"]
                   ;; for clojurescript
                   [com.cemerick/clojurescript.test "0.2.0"]
                   [net.unit8/tower-cljs "0.1.0"]
-                  [org.clojure/clojurescript "0.0-2030"]
+                  [org.clojure/clojurescript "0.0-2127"]
                   [jayq "2.5.0"]]
   :jvm-opts ["-XX:+TieredCompilation" "-XX:TieredStopAtLevel=1" "-Xverify:none"]
   :plugins [ [lein-ring "0.8.2"]
@@ -86,7 +86,8 @@
   {:dev { :dependencies
           [ [ring-mock "0.1.5"]
             [javax.servlet/servlet-api "2.5"]
-            [midje "1.5.1"]]
+            [midje "1.6.0"]]
           :plugins [[lein-midje "3.1.1"]]}}
   :eval-in :classloader)
 
+
