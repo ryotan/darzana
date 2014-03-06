@@ -7,7 +7,7 @@
   (:import
     [org.eclipse.jgit.api InitCommand]))
 
-(def config (ref { :repo "repo"
+(def config (atom {:repo "repo"
                    :workspace "workspace"
                    :default "master"
                    :initial-resources "dev-resources"
@@ -78,8 +78,7 @@
 
 (defn change-workspace [name]
   (make-workspace name)
-  (dosync
-    (alter config assoc :current name))
+  (swap! config assoc :current name)
   (doseq [hook (get-in @config [:hook :change])]
     (hook)))
 

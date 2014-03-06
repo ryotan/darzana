@@ -1,9 +1,9 @@
 (ns darzana.context-test
   (:require
-    [darzana.context :refer :all]])
+    [darzana.context :refer :all])
   (:use
     [midje.sweet]
-    [darzana.core :only [set-application-scope])
+    [darzana.core :only [set-application-scope]]))
 
 (facts "context"
   (fact "convert keyword to string."

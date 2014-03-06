@@ -2,7 +2,7 @@
   (:require
     [clojure.tools.logging :as log]))
 
-(def application-scope (ref {}))
+(def application-scope (atom {}))
 
 (def scope-priorities
   [ :error :page :params :session :application])

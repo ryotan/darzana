@@ -1,6 +1,6 @@
 (ns darzana.ab-testing-test
   (:require
-    [darzana.ab-testing :refer :all])
+    [darzana.block.ab-testing :refer :all])
   (:use
     [darzana.context :only (create-context)]
     [midje.sweet]))

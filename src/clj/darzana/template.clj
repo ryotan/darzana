@@ -38,6 +38,6 @@
   (doall (filter #(re-matches pattern (.getName %))
                  (file-seq dir))))
 
-(dosync (alter workspace/config update-in [:hook :change] conj
-          refresh-loader))
+(swap! workspace/config update-in [:hook :change] conj
+  refresh-loader)
 

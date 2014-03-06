@@ -2,16 +2,20 @@
   (:require
     [clojure.string :as string]
     [clojure.data.json :as json]
+    [clojure.tools.logging :as logging]
     [ring.util.codec :as codec]
     [darzana.context :as context]
     [oauth.client :as oauth]
-    [oauth.signature :as sig])
+    [oauth.signature :as sig]
+    [org.httpkit.client :as http])
+  (:use
+    [darzana.kvs :as kvs :refer [with-kvs]])
   (:import
     [net.sf.json.xml XMLSerializer]))
 
-(def ^:dynamic default-response-parser (fn [body] (json/read-str body)))
+(def default-response-parser (fn [body] (json/read-str body)))
 
-(def apis (ref []))
+(def apis (atom []))
 
 (def => 'assignment)
 
@@ -25,7 +29,7 @@
 (defn create-api
   "create an api."
   [api]
-  (dosync (alter apis conj (str *ns* "/" api)))
+  (swap! apis conj (str *ns* "/" api))
   { :name (keyword api)
     :url ""
     :query-keys []
@@ -94,8 +98,6 @@
   `(let [e# (-> (create-api ~(name api))
               ~@body)]
      (def ~api e#)))
-
-
 
 (defn replace-url-variable [url context]
   (string/replace url #":([A-Za-z_]\w*)"
@@ -194,4 +196,25 @@
     {:headers (build-request-headers context api)}
     {:body (build-request-body context api)}))
 
+(defn cache-response [response cache-key api]
+  (let [ expire (api :expire) ]
+    (if (and (= (api :method) :get) expire) 
+      (try
+        (with-kvs
+          (kvs/set cache-key response)
+          (if expire (kvs/expire cache-key expire)))
+        (catch Exception e (logging/debug "Skip cache-set" e))))))
+
+(defn execute-api [context api]
+  (let [ url (build-url context api)
+         cache (try (with-kvs (kvs/get (str (api :name) "-" url)))
+                 (catch Exception e (logging/debug "Skip cache-get" e)))]
+    { :api api
+      :url url
+      :from-cache (not (empty? cache)) 
+      :response (if cache
+                  cache
+                  (http/request
+                    (build-request {:url url :method (get api :method :get)} context api)
+                    nil))}))
 

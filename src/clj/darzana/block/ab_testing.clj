@@ -1,6 +1,5 @@
-(ns darzana.ab-testing
-  (:use
-    [darzana.router :only (serialize-component)])
+(ns darzana.block.ab-testing
+  (:use [darzana.block])
   (:require
     [org.httpkit.client :as http]
     [clojure.data.json :as json]))
@@ -48,8 +47,6 @@
 ;;;
 ;;; Define block UI serilize / deserialize
 ;;;
-(ns darzana.router)
-
 (defmethod serialize-component 'ab-testing-participate [s r]
   (let [ elm [:block {:type "ab_testing_participate"}
                [:mutation {:alternative (- (count s) 2)}]
