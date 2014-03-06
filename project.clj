@@ -88,4 +88,3 @@
             [javax.servlet/servlet-api "2.5"]
             [midje "1.6.2"]]
           :plugins [[lein-midje "3.1.1"]]}})
-
