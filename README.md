@@ -1,6 +1,8 @@
 darzana
 =======
 
+* develop: [![Build Status](https://travis-ci.org/kawasima/darzana.png?branch=develop)](https://travis-ci.org/kawasima/darzana)
+
 Darzana is a mashup framework written by clojure.
 
 ## Architecture
