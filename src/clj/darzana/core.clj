@@ -26,7 +26,7 @@
   "Define a block component for cljs."
   `(aset js/Blockly.Language ~(name block-name) ~@body))
 
-(def ^:dynamic redis-connection {:pool {} :spec {:host (env :redis-host) :port (env :redis-port)}})
+(def ^:dynamic redis-connection {:pool {} :spec {:host (or (env :redis-host) "localhost") :port (or (env :redis-port) 6379)}})
 
 (defmacro wcar* [& body]
   "Redis context wrapper"
