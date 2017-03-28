@@ -19,13 +19,14 @@
     [darzana.context :as context]
     [darzana.workspace :as workspace]
     [darzana.admin router template api git workspace]
-    [darzana.api :as api]))
+    [darzana.api :as api]
+    [environ.core :refer [env]]))
 
 (defmacro defblock [block-name & body]
   "Define a block component for cljs."
   `(aset js/Blockly.Language ~(name block-name) ~@body))
 
-(def ^:dynamic redis-connection {:pool {} :spec {:host "127.0.0.1" :port 6379}})
+(def ^:dynamic redis-connection {:pool {} :spec {:host (env :redis-host) :port (env :redis-port)}})
 
 (defmacro wcar* [& body]
   "Redis context wrapper"

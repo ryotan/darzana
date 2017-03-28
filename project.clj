@@ -1,4 +1,4 @@
-(defproject net.unit8/darzana "0.1.0-RC2"
+(defproject net.unit8/darzana "0.2.0-SNAPSHOT"
   :description "Mashup framework with visual editor, auto versioning."
   :url "http://github.com/kawasima/darzana/"
   :license {:name "Eclipse Public License"
@@ -23,7 +23,8 @@
                   [com.cemerick/clojurescript.test "0.1.0"]
                   [net.unit8/tower-cljs "0.1.0"]
                   [org.clojure/clojurescript "0.0-1934"]
-                  [jayq "2.4.0"]]
+                 [jayq "2.4.0"]
+                 [environ "1.1.0"]]
   :jvm-opts ["-XX:+TieredCompilation" "-XX:TieredStopAtLevel=1" "-Xverify:none"]
   :plugins [ [lein-ring "0.8.2"]
              [lein-cljsbuild "0.3.3"]]
